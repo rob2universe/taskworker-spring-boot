@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_18j3wwj" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.12.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="1.2.0">
+  <bpmn:process id="LogSomething_process" name="LogSomething" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1c1cwlr</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1c1cwlr" sourceRef="StartEvent_1" targetRef="Activity_Log_Something" />
+    <bpmn:serviceTask id="Activity_Log_Something" name="Log something">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="log" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="myHeader" value="is here" />
+          <zeebe:header key="myOtherHeader" value="is here too" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1c1cwlr</bpmn:incoming>
+      <bpmn:outgoing>Flow_0r2cb8v</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0613hgk">
+      <bpmn:incoming>Flow_14ii8ow</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0r2cb8v" sourceRef="Activity_Log_Something" targetRef="Activity_1yfqr5p" />
+    <bpmn:sequenceFlow id="Flow_14ii8ow" sourceRef="Activity_1yfqr5p" targetRef="Event_0613hgk" />
+    <bpmn:serviceTask id="Activity_1yfqr5p" name="Write something">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="write" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="target" value="writeTo" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0r2cb8v</bpmn:incoming>
+      <bpmn:outgoing>Flow_14ii8ow</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="LogSomething_process">
+      <bpmndi:BPMNEdge id="Flow_0r2cb8v_di" bpmnElement="Flow_0r2cb8v">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="490" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1c1cwlr_di" bpmnElement="Flow_1c1cwlr">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14ii8ow_di" bpmnElement="Flow_14ii8ow">
+        <di:waypoint x="590" y="117" />
+        <di:waypoint x="692" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0byt25l_di" bpmnElement="Activity_Log_Something">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0613hgk_di" bpmnElement="Event_0613hgk">
+        <dc:Bounds x="692" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_19wgt89_di" bpmnElement="Activity_1yfqr5p">
+        <dc:Bounds x="490" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
