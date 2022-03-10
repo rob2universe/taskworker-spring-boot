@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskworker-spring-boot
+  labels:
+    app: taskworker-spring-boot
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: taskworker-spring-boot
+  template:
+    metadata:
+      labels:
+        app: taskworker-spring-boot
+    spec:
+      containers:
+      - name: taskworker-spring-boot
+        image: rob2universe/taskworker-spring-boot:1
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "400m"
+        env:
+        - name: logging.level.root
+          value: info
+        - name: jobType
+          value: log
+        - name: zeebe.client.cloud.clusterId
+          valueFrom:
+            secretKeyRef:
+              key: cluster-id
+              name: cc-secret
+        - name: zeebe.client.cloud.clientId
+          valueFrom:
+            secretKeyRef:
+              key: client-id
+              name: cc-secret
+        - name: zeebe.client.cloud.clientSecret
+          valueFrom:
+            secretKeyRef:
+              key: client-secret
+              name: cc-secret
+        - name: zeebe.client.worker.defaultName
+          value: taskworker-log1

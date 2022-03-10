@@ -14,7 +14,7 @@
 	<description>Generic Camunda Cloud task worker in Spring Boot</description>
     <properties>
         <java.version>11</java.version>
-		<spring-boot.build-image.imageName>io.camunda/example/taskworker-spring-boot</spring-boot.build-image.imageName>
+		<spring-boot.build-image.imageName>rob2universe/taskworker-spring-boot</spring-boot.build-image.imageName>
     </properties>
 	<dependencies>
 		<dependency>
